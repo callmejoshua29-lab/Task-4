@@ -1,0 +1,71 @@
+using System;
+
+namespace Task4App
+{
+    class Task4
+    {
+        static void Main(string[] args)
+        {
+            char continueChoice = 'Y';
+
+            // Loop continues as long as the user enters 'Y' or 'y'
+            while (continueChoice == 'Y' || continueChoice == 'y')
+            {
+                Console.WriteLine("\n--- Calculator Menu ---");
+                Console.WriteLine("1 - Addition");
+                Console.WriteLine("2 - Subtraction");
+                Console.WriteLine("3 - Multiplication");
+                Console.WriteLine("4 - Division");
+                Console.Write("Choose an operation (1-4): ");
+
+                // Read choice and handle potential input errors
+                if (int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    Console.Write("Enter Value 1: ");
+                    double value1 = double.Parse(Console.ReadLine());
+
+                    Console.Write("Enter Value 2: ");
+                    double value2 = double.Parse(Console.ReadLine());
+
+                    Console.WriteLine("\n--- Result ---");
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine($"{value1} + {value2} = {Add(value1, value2)}");
+                            break;
+                        case 2:
+                            Console.WriteLine($"{value1} - {value2} = {Subtract(value1, value2)}");
+                            break;
+                        case 3:
+                            Console.WriteLine($"{value1} * {value2} = {Multiply(value1, value2)}");
+                            break;
+                        case 4:
+                            // Check for division by zero
+                            if (value2 != 0)
+                                Console.WriteLine($"{value1} / {value2} = {Divide(value1, value2)}");
+                            else
+                                Console.WriteLine("Error: Cannot divide by zero.");
+                            break;
+                        default:
+                            Console.WriteLine("Invalid operation selected.");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                }
+
+                Console.Write("\nDo you want to continue again (Y/N)? ");
+                continueChoice = Console.ReadKey().KeyChar;
+                Console.WriteLine(); // Adds a newline for better formatting
+            }
+        }
+
+        // Logic methods for the arithmetic operations
+        static double Add(double a, double b) => a + b;
+        static double Subtract(double a, double b) => a - b;
+        static double Multiply(double a, double b) => a * b;
+        static double Divide(double a, double b) => a / b;
+    }
+}
